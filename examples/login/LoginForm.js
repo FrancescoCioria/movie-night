@@ -17,6 +17,13 @@ export default React.createClass({
     };
   },
 
+  componentDidMount() {
+    this.setState({
+      username: 'francesco',
+      password: '040691'
+    }, this.login);
+  },
+
   login() {
     const { setLoading } = this;
     const { onSuccess } = this.props;

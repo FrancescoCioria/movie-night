@@ -3,11 +3,18 @@ import React from 'react/addons';
 export default React.createClass({
 
   propTypes: {
-    movie: React.PropTypes.object.isRequired,
+    movie: React.PropTypes.shape({
+      attributes: React.PropTypes.shape({
+        title: React.PropTypes.string.isRequired,
+        imdbID: React.PropTypes.string.isRequired,
+        year: React.PropTypes.number.isRequired
+      }).isRequired,
+    }),
     rating: React.PropTypes.number
   },
 
   render() {
+    const {title, year} = this.props.movie.attributes;
     return (
       <div className='card'>
         <div className='blurring dimmable image'>
@@ -19,10 +26,11 @@ export default React.createClass({
           <img src='/images/avatar/large/elliot.jpg'/>
         </div>
         <div className='content'>
-          <a className='header'>Team Fu</a>
+          <div className='header'>{title}</div>
           <div className='meta'>
-            <span className='date'>Create in Sep 2014</span>
+            <span className='date'>{year}</span>
           </div>
+          <p>This is a description</p>
         </div>
         <div className='extra'>
           Rating:

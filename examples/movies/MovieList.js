@@ -1,10 +1,10 @@
 import React from 'react/addons';
-import imdb from 'imdb-api';
+import axios from 'axios';
 import errorHandler from '../errorHandler';
 import MovieCard from './MovieCard';
 import Select from 'react-select';
 
-// const imdb = 'http://www.imdb.com/xml/find?json=1&nr=1&tt=on&q=';
+const omdbSearch = 'http://www.omdbapi.com/?y=&r=json&type=movie&s=';
 
 export default React.createClass({
 
@@ -25,7 +25,6 @@ export default React.createClass({
     const Movie = Parse.Object.extend('Movie');
     const query = new Parse.Query(Movie);
     const { saveMovies } = this;
-    console.log('GETTING MOVIES');
     query.find({
       success: saveMovies,
       error: (user, error) => errorHandler(error)
@@ -40,21 +39,27 @@ export default React.createClass({
     const headers = {
       'Accept': 'application/json'
     };
-    // axios.get(imdb + input, headers).then((res) => {
-    //   console.log(res);
-    // });
-
-    imdb.getReq({name: input}, (err, res) => {
-      console.log(err, res);
+    axios.get(omdbSearch + input, headers).then((res) => {
+      const options = res.data.Search.map((movie) => {
+        return {
+          label: `${movie.Title} (${movie.Year})`,
+          value: movie.imdbID
+        };
+      });
+      cb(null, {options});
     });
   },
 
   getMovieCards() {
     return (
       <div className='ui special cards' style={{margin: 0}}>
-        {this.state.movies.map((movie, key) => <MovieCard movie={movie} key={i} />)}
+        {this.state.movies.map((movie, key) => <MovieCard {...{movie, key}} />)}
       </div>
     );
+  },
+
+  countMyMovies() {
+    this.state.movies.filter(movie => movie)
   },
 
   render() {
@@ -64,6 +69,7 @@ export default React.createClass({
 
     return (
       <div>
+
         <Select asyncOptions={this.getIMDBSuggestions}/>
         {this.getMovieCards()}
       </div>
