@@ -1,14 +1,15 @@
 import React from 'react/addons';
-import axios from 'axios';
 import errorHandler from '../errorHandler';
 import MovieCard from './MovieCard';
-import Select from 'react-select';
-
-const omdbSearch = 'http://www.omdbapi.com/?y=&r=json&type=movie&s=';
+import AddMovie from './AddMovie';
 
 export default React.createClass({
 
   propTypes: {},
+
+  getInitialState() {
+    return {};
+  },
 
   componentDidMount() {
     this.getMovies();
@@ -35,19 +36,8 @@ export default React.createClass({
     this.setState({ movies });
   },
 
-  getIMDBSuggestions(input, cb) {
-    const headers = {
-      'Accept': 'application/json'
-    };
-    axios.get(omdbSearch + input, headers).then((res) => {
-      const options = res.data.Search.map((movie) => {
-        return {
-          label: `${movie.Title} (${movie.Year})`,
-          value: movie.imdbID
-        };
-      });
-      cb(null, {options});
-    });
+  addMovie(movie) {
+    this.setState({ movies: this.state.movies.concat(movie)});
   },
 
   getMovieCards() {
@@ -58,19 +48,16 @@ export default React.createClass({
     );
   },
 
-  countMyMovies() {
-    this.state.movies.filter(movie => movie)
-  },
-
   render() {
-    if (!this.state) {
+    if (!this.state.movies) {
       return null;
     }
 
+    console.log(this.state.movies[0]);
+
     return (
       <div>
-
-        <Select asyncOptions={this.getIMDBSuggestions}/>
+        <AddMovie myMoviesCount={0} onAdded={this.getMovies}/>
         {this.getMovieCards()}
       </div>
     );
