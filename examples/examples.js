@@ -29,6 +29,7 @@ const MovieNight = React.createClass({
   getMovieSession() {
     const MovieSession = Parse.Object.extend('MovieSession');
     const query = new Parse.Query(MovieSession);
+    query.equalTo('active', true);
     const { saveMovieSession } = this;
     query.find({
       success: saveMovieSession,

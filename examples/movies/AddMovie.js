@@ -9,6 +9,7 @@ const omdbByID = 'http://www.omdbapi.com/?r=json&type=movie&tomatoes=true&i=';
 export default React.createClass({
 
   propTypes: {
+    movieSession: React.PropTypes.object.isRequired,
     myMoviesCount: React.PropTypes.number.isRequired,
     myMoviesMax: React.PropTypes.number,
     onAdded: React.PropTypes.func.isRequired
@@ -16,7 +17,7 @@ export default React.createClass({
 
   getDefaultProps() {
     return {
-      myMoviesMax: 20
+      myMoviesMax: 2
     };
   },
 
@@ -61,7 +62,8 @@ export default React.createClass({
         movie.set(key, res.data[key]);
       });
 
-      movie.set('user', Parse.User.current())
+      movie.set('user', Parse.User.current());
+      movie.set('movieSession', this.props.movieSession);
 
       const { setLoading } = this;
       const { onAdded } = this.props;

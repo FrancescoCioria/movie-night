@@ -20,8 +20,17 @@ export default React.createClass({
     const {movieSession} = this.props;
     const endingAt = new Date();
     endingAt.setMinutes(endingAt.getMinutes() + this.state.minutes);
-    movieSession.set('endingAt', endingAt);
-    movieSession.save(null, {
+    console.log(endingAt);
+    movieSession.set('active', false);
+    movieSession.save();
+
+    const MovieSession = Parse.Object.extend('MovieSession');
+    const newMovieSession = new MovieSession();
+
+    newMovieSession.set('endingAt', endingAt);
+    newMovieSession.set('active', true);
+
+    newMovieSession.save(null, {
       success: this.props.onNewSession,
       error: errorHandler
     });

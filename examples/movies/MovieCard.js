@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import errorHandler from '../errorHandler';
 import Rating from '../rating/Rating';
+import Review from './Review';
 
 export default React.createClass({
 
@@ -73,10 +74,25 @@ export default React.createClass({
     }
   },
 
+  getReviews() {
+    const {imdbRating, tomatoMeter} = this.props.movie.attributes;
+    return [
+      {
+        logo: 'https://lh6.ggpht.com/BFD_zfFU4xN17xVdmkpqs05oyU2o0JT0gBZhyQD4xBAs0AaXbpZQBJIun95GHhwgC6U=w170',
+        rate: imdbRating
+      },
+      {
+        logo: 'http://d3biamo577v4eu.cloudfront.net/static/images/trademark/fresh.png',
+        rate: tomatoMeter + '%'
+      }
+    ].map((review, i) => <Review {...review} key={i} />);
+  },
+
   render() {
     const {
       title,
       year,
+      imdbID,
       imdbRating,
       tomatoMeter,
       poster,
@@ -90,13 +106,16 @@ export default React.createClass({
         </div>
         <div className='content'>
           <div className='header'>
-            {title}
+            <a href={`http://www.imdb.com/title/${imdbID}/`} style={{color: '#242424'}}>{title}</a>
             <span className='date'>{year}</span>
           </div>
           <div className='meta'>
             <span className='date'>{runtime}</span>
           </div>
           <p>{plot}</p>
+          <div className='reviews'>
+            {this.getReviews()}
+          </div>
           <div className='extra'>
             {this.getRating()}
           </div>

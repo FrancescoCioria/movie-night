@@ -8,6 +8,7 @@ export default React.createClass({
 
   propTypes: {
     onLogout: React.PropTypes.func.isRequired,
+    movieSession: React.PropTypes.object.isRequired,
     onSessionEnd: React.PropTypes.func.isRequired,
     sessionEndingAt: React.PropTypes.instanceOf(Date).isRequired
   },
@@ -38,6 +39,7 @@ export default React.createClass({
   getMovies() {
     const Movie = Parse.Object.extend('Movie');
     const query = new Parse.Query(Movie);
+    query.equalTo('movieSession', this.props.movieSession);
     const { saveMovies } = this;
     query.find({
       success: saveMovies,
@@ -92,7 +94,7 @@ export default React.createClass({
     return (
       <div id='movie-list-page'>
         <div className='top-bar'>
-          <AddMovie myMoviesCount={this.countMyMovies()} onAdded={this.getMovies}/>
+          <AddMovie myMoviesCount={this.countMyMovies()} onAdded={this.getMovies} movieSession={this.props.movieSession}/>
           <Countdown endDate={this.props.sessionEndingAt} onEnd={this.props.onSessionEnd}/>
         </div>
         <h1>Rate tonight's flix!</h1>
