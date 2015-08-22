@@ -1,0 +1,33 @@
+.ui.rating.react-semantic-rating {
+  position: relative;
+}
+
+.ui.rating.react-semantic-rating i.active {
+  color: #FDBE00;
+}
+
+.ui.rating.react-semantic-rating i {
+  cursor: pointer;
+  display: inline-block;
+  color: #E6E6E6;
+  font-size: 22px;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.ui.rating.react-semantic-rating i.disabled {
+  cursor: not-allowed;
+}
+
+.ui.rating.react-semantic-rating.selected i.selected {
+  color: #FDBE00;
+  opacity: 1;
+}
+
+.ui.rating.react-semantic-rating.selected i.active.selected {
+  opacity: 1;
+}
+
+.ui.rating.react-semantic-rating.selected i.active {
+  opacity: 0.3;
+}

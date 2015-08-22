@@ -5,7 +5,9 @@ import AddMovie from './AddMovie';
 
 export default React.createClass({
 
-  propTypes: {},
+  propTypes: {
+    onLogout: React.PropTypes.func.isRequired
+  },
 
   getInitialState() {
     return {};
@@ -13,16 +15,24 @@ export default React.createClass({
 
   componentDidMount() {
     this.getMovies();
+    this.getVotes();
+  },
+
+  getVotes() {
+    const Vote = Parse.Object.extend('Vote');
+    const query = new Parse.Query(Vote);
+    const { saveVotes } = this;
+    query.find({
+      success: saveVotes,
+      error: (user, error) => errorHandler(error)
+    });
+  },
+
+  saveVotes(votes) {
+    this.setState({ votes });
   },
 
   getMovies() {
-    const getOthers = (results) => {
-      return results;
-    };
-    const getMine = (results) => {
-      return results;
-    };
-
     const Movie = Parse.Object.extend('Movie');
     const query = new Parse.Query(Movie);
     const { saveMovies } = this;
@@ -40,25 +50,50 @@ export default React.createClass({
     this.setState({ movies: this.state.movies.concat(movie)});
   },
 
-  getMovieCards() {
+  getOthersMovieCards() {
+    const generalProps = {
+      onRated: this.getVotes,
+      votes: this.state.votes
+    };
+
+    const movies = this.state.movies.filter(m => m.attributes.user.id !== Parse.User.current().id);
     return (
       <div className='ui special cards' style={{margin: 0}}>
-        {this.state.movies.map((movie, key) => <MovieCard {...{movie, key}} />)}
+        {this.state.movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
       </div>
     );
   },
 
+  getMyMovieCards() {
+    const generalProps = {
+      onRated: this.getVotes,
+      votes: this.state.votes
+    };
+
+    const movies = this.state.movies.filter(m => m.attributes.user.id === Parse.User.current().id);
+    return (
+      <div className='ui special cards' style={{margin: 0}}>
+        {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
+      </div>
+    );
+  },
+
+  countMyMovies() {
+    return this.state.movies.filter(movie => movie.attributes.user.id === Parse.User.current().id).length;
+  },
+
   render() {
-    if (!this.state.movies) {
+    if (!this.state.movies || !this.state.votes) {
       return null;
     }
 
-    console.log(this.state.movies[0]);
-
     return (
-      <div>
-        <AddMovie myMoviesCount={0} onAdded={this.getMovies}/>
-        {this.getMovieCards()}
+      <div id='movie-list-page'>
+        <AddMovie myMoviesCount={this.countMyMovies()} onAdded={this.getMovies}/>
+        <h1>Rate tonight's flix!</h1>
+        {this.getOthersMovieCards()}
+        <h1>Your selection</h1>
+        {this.getMyMovieCards()}
       </div>
     );
   }

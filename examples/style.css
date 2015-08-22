@@ -1,3 +1,71 @@
 #main {
   padding: 30px;
+  height: 100%;
+}
+
+#main > div {
+  height: 100%;
+}
+
+#main .ui.cards {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+#main .ui.cards .card {
+  max-height: 213px;
+  min-height: 213px;
+  flex-direction: row;
+  min-width: 500px;
+}
+
+#main .ui.cards .card .image img {
+  width: 150px !important;
+  height: 213px !important;
+}
+
+#main .ui.cards .card .content {
+  position: relative;
+}
+
+#main .ui.cards .card .content p {
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+#main .ui.cards .card .content .extra {
+  position: absolute;
+  bottom: 7px;
+}
+
+#movie-list-page {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+.add-movie {
+  flex: 0 0 auto;
+}
+
+.card .header {
+  display: flex !important;
+  display: -webkit-flex !important;
+}
+
+.card .header .date {
+  width: 100%;
+  text-align: right;
+  font-size: 16px;
+}
+
+.Select .Select-control .Select-placeholder {
+  display: none !important;
 }

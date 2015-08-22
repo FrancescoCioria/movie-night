@@ -12,14 +12,24 @@ const MovieNight = React.createClass({
     };
   },
 
-  setLogged() {
+  login() {
     this.setState({logged: true});
   },
 
+  logout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    this.setState({logged: false});
+    Parse.User.logOut();
+  },
+
   render() {
-    return this.state.logged ?
-      <MovieList {...this.state} />
-      : <LoginForm {...this.state} onSuccess={this.setLogged}/>;
+    if (!this.state.logged) {
+      return <LoginForm {...this.state} onLogin={this.login} onLogout={this.logout}/>;
+    }
+
+
+    return <MovieList {...this.state} onLogout={this.logout}/>;
   }
 
 });

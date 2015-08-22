@@ -4,7 +4,8 @@ import errorHandler from '../errorHandler';
 export default React.createClass({
 
   propTypes: {
-    onSuccess: React.PropTypes.func.isRequired
+    onLogin: React.PropTypes.func.isRequired,
+    onLogout: React.PropTypes.func.isRequired
   },
 
   mixins: [React.addons.LinkedStateMixin],
@@ -18,22 +19,26 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    this.setState({
-      username: 'francesco',
-      password: '040691'
-    }, this.login);
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    if (username && password) {
+      this.setState({username, password}, this.login);
+    }
   },
 
   login() {
     const { setLoading } = this;
-    const { onSuccess } = this.props;
+    const { onLogin, onLogout } = this.props;
     setLoading(true);
     const { username, password } = this.state;
     Parse.User.logIn(username, password, {
       success: (user) => {
-        onSuccess();
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+        onLogin();
       },
       error: function(user, error) {
+        onLogout();
         setLoading(false);
         errorHandler(error);
       }
@@ -42,7 +47,7 @@ export default React.createClass({
 
   signup() {
     const { setLoading } = this;
-    const { onSuccess } = this.props;
+    const { onLogin } = this.props;
     setLoading(true);
     const user = new Parse.User();
     const { username, password } = this.state;
@@ -51,7 +56,7 @@ export default React.createClass({
 
     user.signUp(null, {
       success: function(user) {
-        onSuccess();
+        onLogin();
       },
       error: function(user, error) {
         setLoading(false);

@@ -15,7 +15,7 @@ export default React.createClass({
 
   getDefaultProps() {
     return {
-      myMoviesMax: 2
+      myMoviesMax: 20
     };
   },
 
@@ -60,12 +60,13 @@ export default React.createClass({
         movie.set(key, res.data[key]);
       });
 
+      movie.set('user', Parse.User.current())
+
       const { setLoading } = this;
       const { onAdded } = this.props;
 
       movie.save(null, {
         success: (movie) => {
-          console.log('hello');
           setLoading(false);
           onAdded(movie);
         },
@@ -87,13 +88,12 @@ export default React.createClass({
   },
 
   render() {
-    console.log(this.state.options)
     const moviesLeft = this.props.myMoviesMax - this.props.myMoviesCount;
     const loading = this.state.loading ? 'loading' : '';
     return (
-      <div className='ui segment ${loading} add-movie'>
+      <div className={`ui segment ${loading} add-movie`}>
         <h2>You've got {moviesLeft} movies left</h2>
-        <Select asyncOptions={this.getOMDBSuggestions} onChange={this.getOMDBMovie} />
+        {moviesLeft > 0 &&<Select asyncOptions={this.getOMDBSuggestions} onChange={this.getOMDBMovie} value=''/>}
       </div>
     );
   }
