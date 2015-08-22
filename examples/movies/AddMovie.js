@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import errorHandler from '../errorHandler';
 import Select from 'react-select';
 
 const omdbSearch = 'http://www.omdbapi.com/?r=json&type=movie&s=';
@@ -71,7 +72,7 @@ export default React.createClass({
           onAdded(movie);
         },
         error: (movie, error) => {
-          alert('Failed to create new movie, with error code: ' + error.message);
+          errorHandler(movie, error);
           setLoading(false);
         }
       });

@@ -1,4 +1,4 @@
-const handleError = (error) => {
+const handleError = (obj, error) => {
   console.log(`ERROR: ${error.message}`);
   switch (error.code) {
     case Parse.Error.INVALID_SESSION_TOKEN:

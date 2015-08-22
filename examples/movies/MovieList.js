@@ -24,7 +24,7 @@ export default React.createClass({
     const { saveVotes } = this;
     query.find({
       success: saveVotes,
-      error: (user, error) => errorHandler(error)
+      error: errorHandler
     });
   },
 
@@ -38,7 +38,7 @@ export default React.createClass({
     const { saveMovies } = this;
     query.find({
       success: saveMovies,
-      error: (user, error) => errorHandler(error)
+      error: errorHandler
     });
   },
 
@@ -67,6 +67,7 @@ export default React.createClass({
   getMyMovieCards() {
     const generalProps = {
       onRated: this.getVotes,
+      onDeleted: this.getMovies,
       votes: this.state.votes
     };
 

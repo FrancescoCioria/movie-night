@@ -7,6 +7,15 @@
   height: 100%;
 }
 
+#main .top-buttons {
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+}
+
 #main .ui.cards {
   margin: 0;
   padding: 0;
@@ -42,6 +51,14 @@
   bottom: 7px;
 }
 
+#main .ui.cards .card .content .delete-card {
+  position: absolute;
+  bottom: 7px;
+  right: 12px;
+  cursor: pointer;
+  color: red;
+}
+
 #movie-list-page {
   display: flex;
   display: -webkit-flex;
@@ -58,6 +75,7 @@
 .card .header {
   display: flex !important;
   display: -webkit-flex !important;
+  display: -ms-flex !important;
 }
 
 .card .header .date {

@@ -29,7 +29,14 @@ const MovieNight = React.createClass({
     }
 
 
-    return <MovieList {...this.state} onLogout={this.logout}/>;
+    return (
+      <div className='main-page-wrapper'>
+        <div className='top-buttons'>
+          <button onClick={this.logout}>Logout</button>
+        </div>
+        <MovieList {...this.state} onLogout={this.logout}/>
+      </div>
+    );
   }
 
 });

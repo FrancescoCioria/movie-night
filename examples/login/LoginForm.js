@@ -37,10 +37,10 @@ export default React.createClass({
         localStorage.setItem('password', password);
         onLogin();
       },
-      error: function(user, error) {
+      error: (user, error) => {
         onLogout();
         setLoading(false);
-        errorHandler(error);
+        errorHandler(user, error);
       }
     });
   },
@@ -55,12 +55,10 @@ export default React.createClass({
     user.set('password', password);
 
     user.signUp(null, {
-      success: function(user) {
-        onLogin();
-      },
-      error: function(user, error) {
+      success: onLogin,
+      error: (user, error) => {
         setLoading(false);
-        errorHandler(error);
+        errorHandler(user, error);
       }
     });
   },

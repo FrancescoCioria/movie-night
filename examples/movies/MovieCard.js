@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import errorHandler from '../errorHandler';
 import Rating from '../rating/Rating';
 
 export default React.createClass({
@@ -18,7 +19,15 @@ export default React.createClass({
       }).isRequired,
     }),
     votes: React.PropTypes.array.isRequired,
-    onRated: React.PropTypes.func.isRequired
+    onRated: React.PropTypes.func.isRequired,
+    onDeleted: React.PropTypes.func.isRequired
+  },
+
+  delete() {
+    this.props.movie.destroy({
+      success: this.props.onDeleted,
+      error: errorHandler
+    });
   },
 
   onRate(rate) {
@@ -31,21 +40,18 @@ export default React.createClass({
     vote.set('movie', movie);
     vote.set('vote', rate);
     vote.save(null, {
-      success: (vote) => {
-        onRated(vote);
-      },
-      error: (movie, error) => {
-        alert('Failed to rate movie with error code: ' + error.message);
-      }
+      success: onRated,
+      error: errorHandler
     });
+  },
+
+  isMine() {
+    return this.props.movie.attributes.user.id === Parse.User.current().id;
   },
 
   getRating() {
     const {movie, votes} = this.props;
     const me = Parse.User.current();
-    if (movie.attributes.user.id === me.id) {
-      return false;
-    }
     const vote = votes.filter(v => v.attributes.user.id === me.id && v.attributes.movie.id === movie.id)[0];
     return (
       <Rating
@@ -71,12 +77,7 @@ export default React.createClass({
     } = this.props.movie.attributes;
     return (
       <div className='card'>
-        <div className='blurring dimmable image'>
-          <div className='ui dimmer'>
-            <div className='content'>
-              <p>breve descrizione</p>
-            </div>
-          </div>
+        <div className='image'>
           <img src={poster}/>
         </div>
         <div className='content'>
@@ -89,8 +90,9 @@ export default React.createClass({
           </div>
           <p>{plot}</p>
           <div className='extra'>
-            {this.getRating()}
+            {!this.isMine() && this.getRating()}
           </div>
+          {this.isMine() && <div className='delete-card' onClick={this.delete}>Delete card</div>}
         </div>
       </div>
     );
