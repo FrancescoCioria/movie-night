@@ -46,29 +46,27 @@ export default React.createClass({
     this.setState({ movies });
   },
 
-  addMovie(movie) {
-    this.setState({ movies: this.state.movies.concat(movie)});
-  },
-
   getOthersMovieCards() {
     const generalProps = {
-      onRated: this.getVotes,
-      votes: this.state.votes
+      rate: {
+        onRated: this.getVotes,
+        votes: this.state.votes
+      },
     };
 
     const movies = this.state.movies.filter(m => m.attributes.user.id !== Parse.User.current().id);
     return (
       <div className='ui special cards' style={{margin: 0}}>
-        {this.state.movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
+        {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
       </div>
     );
   },
 
   getMyMovieCards() {
     const generalProps = {
-      onRated: this.getVotes,
-      onDeleted: this.getMovies,
-      votes: this.state.votes
+      delete: {
+        onDeleted: this.getMovies
+      }
     };
 
     const movies = this.state.movies.filter(m => m.attributes.user.id === Parse.User.current().id);

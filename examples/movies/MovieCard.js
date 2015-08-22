@@ -17,10 +17,14 @@ export default React.createClass({
         runtime: React.PropTypes.string.isRequired,
         user: React.PropTypes.object.isRequired
       }).isRequired,
+    }).isRequired,
+    rate: React.PropTypes.shape({
+      votes: React.PropTypes.array.isRequired,
+      onRated: React.PropTypes.func.isRequired
     }),
-    votes: React.PropTypes.array.isRequired,
-    onRated: React.PropTypes.func.isRequired,
-    onDeleted: React.PropTypes.func.isRequired
+    delete: React.PropTypes.shape({
+      onDeleted: React.PropTypes.func.isRequired
+    })
   },
 
   delete() {
@@ -33,7 +37,8 @@ export default React.createClass({
   onRate(rate) {
     const Vote = Parse.Object.extend('Vote');
     const me = Parse.User.current();
-    const {movie, votes, onRated} = this.props;
+    const {movie} = this.props;
+    const {votes, onRated} = this.props.rate;
     const vote = votes.filter(v => v.attributes.user.id === me.id && v.attributes.movie.id === movie.id)[0] || new Vote();
 
     vote.set('user', me);
@@ -50,19 +55,22 @@ export default React.createClass({
   },
 
   getRating() {
-    const {movie, votes} = this.props;
-    const me = Parse.User.current();
-    const vote = votes.filter(v => v.attributes.user.id === me.id && v.attributes.movie.id === movie.id)[0];
-    return (
-      <Rating
-        onRate={this.onRate}
-        rating={vote ? vote.attributes.vote : undefined}
-        hints={['1', '2', '3', '4', '5']}
-        icon='empty star icon'
-        iconActive='star icon'
-        iconSelected='star icon'
-        />
-    );
+    if (this.props.rate) {
+      const {movie} = this.props;
+      const {votes} = this.props.rate;
+      const me = Parse.User.current();
+      const vote = votes.filter(v => v.attributes.user.id === me.id && v.attributes.movie.id === movie.id)[0];
+      return (
+        <Rating
+          onRate={this.onRate}
+          rating={vote ? vote.attributes.vote : undefined}
+          hints={['1', '2', '3', '4', '5']}
+          icon='empty star icon'
+          iconActive='star icon'
+          iconSelected='star icon'
+          />
+      );
+    }
   },
 
   render() {
@@ -90,9 +98,9 @@ export default React.createClass({
           </div>
           <p>{plot}</p>
           <div className='extra'>
-            {!this.isMine() && this.getRating()}
+            {this.getRating()}
           </div>
-          {this.isMine() && <div className='delete-card' onClick={this.delete}>Delete card</div>}
+          {this.props.delete && <div className='delete-card' onClick={this.delete}>Delete card</div>}
         </div>
       </div>
     );

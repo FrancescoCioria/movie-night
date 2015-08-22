@@ -1,33 +1,33 @@
 .ui.rating.react-semantic-rating {
-  position: relative;
+  position: relative !important;
 }
 
 .ui.rating.react-semantic-rating i.active {
-  color: #FDBE00;
+  color: #FDBE00 !important;
 }
 
 .ui.rating.react-semantic-rating i {
-  cursor: pointer;
-  display: inline-block;
-  color: #E6E6E6;
-  font-size: 22px;
-  padding-right: 4px;
-  padding-left: 4px;
+  cursor: pointer !important;
+  display: inline-block !important;
+  color: #E6E6E6 !important;
+  font-size: 22px !important;
+  padding-right: 4px !important;
+  padding-left: 4px !important;
 }
 
 .ui.rating.react-semantic-rating i.disabled {
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 .ui.rating.react-semantic-rating.selected i.selected {
-  color: #FDBE00;
-  opacity: 1;
+  color: #FDBE00 !important;
+  opacity: 1 !important;
 }
 
 .ui.rating.react-semantic-rating.selected i.active.selected {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .ui.rating.react-semantic-rating.selected i.active {
-  opacity: 0.3;
+  opacity: 0.3 !important;
 }
