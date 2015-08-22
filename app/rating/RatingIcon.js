@@ -4,17 +4,17 @@ import partial from 'lodash/function/partial';
 export default React.createClass({
 
   propTypes: {
-    onHover:      React.PropTypes.func.isRequired,
-    onLeave:      React.PropTypes.func.isRequired,
-    onClick:      React.PropTypes.func.isRequired,
-    index:        React.PropTypes.number.isRequired,
-    icon:         React.PropTypes.string.isRequired,
-    iconActive:   React.PropTypes.string.isRequired,
+    onHover: React.PropTypes.func.isRequired,
+    onLeave: React.PropTypes.func.isRequired,
+    onClick: React.PropTypes.func.isRequired,
+    index: React.PropTypes.number.isRequired,
+    icon: React.PropTypes.string.isRequired,
+    iconActive: React.PropTypes.string.isRequired,
     iconSelected: React.PropTypes.string.isRequired,
-    selected:     React.PropTypes.bool.isRequired,
-    active:       React.PropTypes.bool.isRequired,
-    disabled:     React.PropTypes.bool,
-    hint:         React.PropTypes.string
+    selected: React.PropTypes.bool.isRequired,
+    active: React.PropTypes.bool.isRequired,
+    disabled: React.PropTypes.bool,
+    hint: React.PropTypes.string
   },
 
   componentDidMount() {

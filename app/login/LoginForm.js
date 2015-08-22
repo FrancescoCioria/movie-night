@@ -19,6 +19,10 @@ export default React.createClass({
   },
 
   componentDidMount() {
+    this.autoLogin();
+  },
+
+  autoLogin() {
     const username = localStorage.getItem('username');
     const password = localStorage.getItem('password');
     if (username && password) {
@@ -32,7 +36,7 @@ export default React.createClass({
     setLoading(true);
     const { username, password } = this.state;
     Parse.User.logIn(username, password, {
-      success: (user) => {
+      success: () => {
         localStorage.setItem('username', username);
         localStorage.setItem('password', password);
         onLogin();

@@ -48,7 +48,7 @@ export default React.createClass({
       'Accept': 'application/json'
     };
     axios.get(omdbByID + imdbID, headers).then((res) => {
-      const Movie = Parse.Object.extend("Movie");
+      const Movie = Parse.Object.extend('Movie');
       const movie = new Movie();
 
       const lowercaseKeys = ['Title', 'Year', 'Plot', 'Poster', 'Runtime'];
@@ -87,7 +87,7 @@ export default React.createClass({
   },
 
   countMyMovies() {
-    this.state.movies.filter(movie => movie)
+    this.state.movies.filter(movie => movie);
   },
 
   render() {
@@ -96,7 +96,7 @@ export default React.createClass({
     return (
       <div className={`ui segment ${loading} add-movie`}>
         <h2>You can select {moviesLeft} more movies</h2>
-        {moviesLeft > 0 &&<Select asyncOptions={this.getOMDBSuggestions} onChange={this.getOMDBMovie} value=''/>}
+        {moviesLeft > 0 && <Select asyncOptions={this.getOMDBSuggestions} onChange={this.getOMDBMovie} value=''/>}
       </div>
     );
   }

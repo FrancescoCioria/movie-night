@@ -3,8 +3,8 @@ import React from 'react';
 export default React.createClass({
 
   propTypes: {
-    onEnd:   React.PropTypes.func,
-    onTick:  React.PropTypes.func,
+    onEnd: React.PropTypes.func,
+    onTick: React.PropTypes.func,
     endDate: React.PropTypes.instanceOf(Date).isRequired,
     compact: React.PropTypes.bool
   },

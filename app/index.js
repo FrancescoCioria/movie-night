@@ -10,7 +10,7 @@ const MovieNight = React.createClass({
 
   getInitialState() {
     return {
-      logged: false,
+      logged: false
     };
   },
 

@@ -49,14 +49,6 @@ export default React.createClass({
 
   getSortedMovies() {
     const votesByMovieId = _.groupBy(this.state.votes, v => v.attributes.movie.id);
-    const winner = Object.keys(votesByMovieId).reduce((acc, key) => {
-      const votesCount = votesByMovieId[key].reduce((acc, v) => acc + v.attributes.vote, 0);
-      const newAcc = {
-        movieId: key,
-        votesCount
-      };
-      return acc && acc.votesCount > votesCount ? acc : newAcc;
-    }, null);
 
     const rates = Object.keys(votesByMovieId).map(key => {
       const rate = votesByMovieId[key].reduce((acc, v) => acc + v.attributes.vote, 0);

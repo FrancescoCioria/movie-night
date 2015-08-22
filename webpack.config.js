@@ -4,21 +4,20 @@ var webpackBase = require('./webpack.base');
 var assign = require('lodash/object').assign;
 
 var paths = {
-  SRC: path.resolve(__dirname, '../src'),
-  EXAMPLES: path.resolve(__dirname, '.')
+  APP: path.resolve(__dirname, './app')
 };
 
 module.exports = assign(webpackBase, {
 
   entry: [
     'webpack/hot/dev-server',
-    paths.EXAMPLES + '/examples.js'
+    paths.APP + '/index.js'
   ],
 
   devtool: 'source-map',
 
   devServer: {
-    contentBase: paths.EXAMPLES,
+    contentBase: paths.APP,
     hot: true,
     inline: true,
     port: '8080'

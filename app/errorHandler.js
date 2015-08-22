@@ -6,7 +6,7 @@ const handleError = (obj, error) => {
       break;
 
     default:
-      alert(error.message);
+      alert(error.message); // eslint-disable-line
   }
 };
 export default handleError;

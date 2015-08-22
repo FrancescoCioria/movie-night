@@ -5,16 +5,16 @@ import RatingIcon from './RatingIcon';
 export default React.createClass({
 
   propTypes: {
-    onRate:       React.PropTypes.func.isRequired,
-    rating:       React.PropTypes.number,
-    hints:        React.PropTypes.arrayOf(React.PropTypes.string),
-    maxRating:    React.PropTypes.number,
-    icon:         React.PropTypes.string,
-    iconActive:   React.PropTypes.string,
+    onRate: React.PropTypes.func.isRequired,
+    rating: React.PropTypes.number,
+    hints: React.PropTypes.arrayOf(React.PropTypes.string),
+    maxRating: React.PropTypes.number,
+    icon: React.PropTypes.string,
+    iconActive: React.PropTypes.string,
     iconSelected: React.PropTypes.string,
-    className:    React.PropTypes.string,
-    loading:      React.PropTypes.bool,
-    disabled:     React.PropTypes.bool
+    className: React.PropTypes.string,
+    loading: React.PropTypes.bool,
+    disabled: React.PropTypes.bool
   },
 
   getDefaultProps() {
@@ -81,10 +81,12 @@ export default React.createClass({
   render() {
     const selected = this.state.hoverIndex >= 0 ? 'selected' : '';
     const loading = this.props.loading ? 'loading' : '';
-    return <div className={`ui rating react-semantic-rating ${this.props.className} ${selected} ${loading}`}>
-            {this.getLoader()}
-            {this.getRatingIcons()}
-          </div>;
+    return (
+      <div className={`ui rating react-semantic-rating ${this.props.className} ${selected} ${loading}`}>
+        {this.getLoader()}
+        {this.getRatingIcons()}
+      </div>
+    );
   }
 
 });

@@ -56,7 +56,7 @@ export default React.createClass({
       rate: {
         onRated: this.getVotes,
         votes: this.state.votes
-      },
+      }
     };
 
     const movies = this.state.movies.filter(m => m.attributes.user.id !== Parse.User.current().id);

@@ -17,7 +17,7 @@ export default React.createClass({
         plot: React.PropTypes.string.isRequired,
         runtime: React.PropTypes.string.isRequired,
         user: React.PropTypes.object.isRequired
-      }).isRequired,
+      }).isRequired
     }).isRequired,
     rate: React.PropTypes.shape({
       votes: React.PropTypes.array.isRequired,
@@ -93,8 +93,6 @@ export default React.createClass({
       title,
       year,
       imdbID,
-      imdbRating,
-      tomatoMeter,
       poster,
       plot,
       runtime
