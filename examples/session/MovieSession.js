@@ -68,7 +68,7 @@ export default React.createClass({
 
     return rates
       .sort((a, b) => a.rate - b.rate)
-      .map(rate => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} />);
+      .map((rate, key) => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} key={key}/>);
   },
 
   render() {
@@ -84,12 +84,12 @@ export default React.createClass({
       <div id='movie-session-page'>
         <NewSession {...this.props}/>
         <h1>And the winner is...</h1>
-        <div className='ui special cards' style={{margin: 0}}>
+        <div className='ui special cards'>
           {Winner}
         </div>
         <br/>
         <h3>All the loosers (sorted by rate)</h3>
-        <div className='ui special cards' style={{margin: 0}}>
+        <div className='ui special cards movie-list'>
           {Loosers}
         </div>
       </div>

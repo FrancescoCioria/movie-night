@@ -2,11 +2,14 @@ import React from 'react/addons';
 import errorHandler from '../errorHandler';
 import MovieCard from './MovieCard';
 import AddMovie from './AddMovie';
+import Countdown from '../countdown/Countdown';
 
 export default React.createClass({
 
   propTypes: {
-    onLogout: React.PropTypes.func.isRequired
+    onLogout: React.PropTypes.func.isRequired,
+    onSessionEnd: React.PropTypes.func.isRequired,
+    sessionEndingAt: React.PropTypes.instanceOf(Date).isRequired
   },
 
   getInitialState() {
@@ -56,7 +59,7 @@ export default React.createClass({
 
     const movies = this.state.movies.filter(m => m.attributes.user.id !== Parse.User.current().id);
     return (
-      <div className='ui special cards' style={{margin: 0}}>
+      <div className='ui special cards movie-list'>
         {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
       </div>
     );
@@ -71,7 +74,7 @@ export default React.createClass({
 
     const movies = this.state.movies.filter(m => m.attributes.user.id === Parse.User.current().id);
     return (
-      <div className='ui special cards' style={{margin: 0}}>
+      <div className='ui special cards movie-list'>
         {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
       </div>
     );
@@ -88,7 +91,10 @@ export default React.createClass({
 
     return (
       <div id='movie-list-page'>
-        <AddMovie myMoviesCount={this.countMyMovies()} onAdded={this.getMovies}/>
+        <div className='top-bar'>
+          <AddMovie myMoviesCount={this.countMyMovies()} onAdded={this.getMovies}/>
+          <Countdown endDate={this.props.sessionEndingAt} onEnd={this.props.onSessionEnd}/>
+        </div>
         <h1>Rate tonight's flix!</h1>
         {this.getOthersMovieCards()}
         <h1>Your selection</h1>

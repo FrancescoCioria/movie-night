@@ -1,0 +1,27 @@
+.countdown .countdown-block {
+  float: left;
+  text-align: center;
+}
+
+.countdown .countdown-block h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.countdown .countdown-block p {
+  margin: 0;
+  margin-top: -5px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.countdown span {
+  float: left;
+  font-size: 42px;
+  font-weight: 600;
+  margin: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+  color: #DDDDDD;
+  margin-top: 12px;
+}

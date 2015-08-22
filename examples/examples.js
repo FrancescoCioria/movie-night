@@ -61,7 +61,7 @@ const MovieNight = React.createClass({
     let body = endingAt < now ?
       <MovieSession {...this.state} onNewSession={this.getMovieSession}/>
       :
-      <MovieList {...this.state} onLogout={this.logout}/>;
+      <MovieList {...this.state} onLogout={this.logout} sessionEndingAt={endingAt} onSessionEnd={this.getMovieSession}/>;
 
     return (
       <div className='main-page-wrapper'>

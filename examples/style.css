@@ -16,6 +16,27 @@
   -webkit-justify-content: flex-end;
 }
 
+#main .top-bar {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+}
+
+#main .top-bar .add-movie {
+  flex: 0 0 400px;
+}
+
+#main .top-bar .countdown {
+  margin-left: auto;
+}
+
+#main .start-new-session {
+  width: 400px;
+}
+
 #main .ui.cards {
   margin: 0;
   padding: 0;
@@ -23,6 +44,22 @@
   -webkit-flex-wrap: nowrap;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
+}
+
+#main .ui.cards {
+  margin: 0;
+}
+
+#main .ui.cards.movie-list {
+  margin: 0 -30px;
+}
+
+#main .ui.cards.movie-list .card:first-child {
+  margin-left: 30px;
+}
+
+#main .ui.cards.movie-list .card:last-child {
+  margin-right: 30px;
 }
 
 #main .ui.cards .card {

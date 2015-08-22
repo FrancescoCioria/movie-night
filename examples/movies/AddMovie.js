@@ -93,7 +93,7 @@ export default React.createClass({
     const loading = this.state.loading ? 'loading' : '';
     return (
       <div className={`ui segment ${loading} add-movie`}>
-        <h2>You've got {moviesLeft} movies left</h2>
+        <h2>You can select {moviesLeft} more movies</h2>
         {moviesLeft > 0 &&<Select asyncOptions={this.getOMDBSuggestions} onChange={this.getOMDBMovie} value=''/>}
       </div>
     );
