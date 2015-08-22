@@ -30,7 +30,7 @@ export default React.createClass({
 
   delete() {
     this.props.movie.destroy({
-      success: this.props.onDeleted,
+      success: this.props.delete.onDeleted,
       error: errorHandler
     });
   },
