@@ -69,6 +69,10 @@
   min-width: 500px;
 }
 
+#main .ui.cards .card .image {
+  background-color: transparent;
+}
+
 #main .ui.cards .card .image img {
   width: 150px !important;
   height: 213px !important;
@@ -149,4 +153,64 @@
 
 .Select .Select-control .Select-placeholder {
   display: none !important;
+}
+
+@media (max-width: 768px) {
+
+  #main {
+    padding: 10px;
+  }
+
+  #main .top-buttons {
+    margin-bottom: 10px;
+  }
+
+  #main .top-bar {
+    display: block;
+  }
+
+  #main .top-bar .add-movie {
+    width: 100%
+  }
+
+  #main .ui.cards.movie-list {
+    margin: 0 -10px;
+  }
+
+  #main .ui.cards.movie-list .card:first-child {
+    margin-left: 10px;
+  }
+
+  #main .ui.cards.movie-list .card:last-child {
+    margin-right: 10px;
+  }
+
+  #main .ui.cards .card {
+    max-height: 175px;
+    min-height: 175px;
+    min-width: 390px;
+  }
+
+  #main .ui.cards .card .image img {
+    width: 100px !important;
+    height: 142px !important;
+  }
+
+  #main .ui.cards .card .content {
+    padding: 0.7em 0.7em 0 0.7em;
+  }
+
+  #main .ui.cards .card .content p {
+    margin: 0;
+  }
+
+  #main .ui.cards .card .content .reviews {
+    left: -92px;
+    bottom: 6px;
+  }
+
+  #main .ui.cards .card .content .reviews .review {
+    margin-right: 3px;
+  }
+
 }
