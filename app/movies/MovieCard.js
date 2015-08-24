@@ -21,7 +21,8 @@ export default React.createClass({
     }).isRequired,
     rate: React.PropTypes.shape({
       votes: React.PropTypes.array.isRequired,
-      onRated: React.PropTypes.func.isRequired
+      onRated: React.PropTypes.func.isRequired,
+      movieSession: React.PropTypes.object
     }),
     delete: React.PropTypes.shape({
       onDeleted: React.PropTypes.func.isRequired
@@ -39,12 +40,13 @@ export default React.createClass({
     const Vote = Parse.Object.extend('Vote');
     const me = Parse.User.current();
     const {movie} = this.props;
-    const {votes, onRated} = this.props.rate;
+    const {votes, onRated, movieSession} = this.props.rate;
     const vote = votes.filter(v => v.attributes.user.id === me.id && v.attributes.movie.id === movie.id)[0] || new Vote();
 
     vote.set('user', me);
     vote.set('movie', movie);
     vote.set('vote', rate);
+    vote.set('movieSession', movieSession);
     vote.save(null, {
       success: onRated,
       error: errorHandler

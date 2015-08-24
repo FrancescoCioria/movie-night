@@ -25,6 +25,7 @@ export default React.createClass({
   getVotes() {
     const Vote = Parse.Object.extend('Vote');
     const query = new Parse.Query(Vote);
+    query.equalTo('movieSession', this.props.movieSession);
     const { saveVotes } = this;
     query.find({
       success: saveVotes,
@@ -55,7 +56,8 @@ export default React.createClass({
     const generalProps = {
       rate: {
         onRated: this.getVotes,
-        votes: this.state.votes
+        votes: this.state.votes,
+        movieSession: this.props.movieSession
       }
     };
 

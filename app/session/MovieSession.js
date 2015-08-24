@@ -22,6 +22,7 @@ export default React.createClass({
   getVotes() {
     const Vote = Parse.Object.extend('Vote');
     const query = new Parse.Query(Vote);
+    query.equalTo('movieSession', this.props.movieSession);
     const { saveVotes } = this;
     query.find({
       success: saveVotes,
@@ -36,6 +37,7 @@ export default React.createClass({
   getMovies() {
     const Movie = Parse.Object.extend('Movie');
     const query = new Parse.Query(Movie);
+    query.equalTo('movieSession', this.props.movieSession);
     const { saveMovies } = this;
     query.find({
       success: saveMovies,
@@ -59,7 +61,7 @@ export default React.createClass({
     });
 
     return rates
-      .sort((a, b) => a.rate - b.rate)
+      .sort((a, b) => b.rate - a.rate)
       .filter(rate => this.state.movies.filter(m => m.id === rate.movieId)[0])
       .map((rate, key) => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} key={key}/>);
   },
