@@ -20,6 +20,11 @@ export default React.createClass({
   componentDidMount() {
     this.getMovies();
     this.getVotes();
+    this.interval = setInterval(this.getMovies, 5000);
+  },
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   },
 
   getVotes() {
@@ -64,7 +69,7 @@ export default React.createClass({
     const movies = this.state.movies.filter(m => m.attributes.user.id !== Parse.User.current().id);
     return (
       <div className='ui special cards movie-list'>
-        {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
+        {movies.map((movie, key) => <MovieCard {...{movie, key, index: key}} {...generalProps}/>)}
       </div>
     );
   },
@@ -79,7 +84,7 @@ export default React.createClass({
     const movies = this.state.movies.filter(m => m.attributes.user.id === Parse.User.current().id);
     return (
       <div className='ui special cards movie-list'>
-        {movies.map((movie, key) => <MovieCard {...{movie, key}} {...generalProps}/>)}
+        {movies.map((movie, key) => <MovieCard {...{movie, key, index: key}} {...generalProps}/>)}
       </div>
     );
   },

@@ -63,7 +63,7 @@ export default React.createClass({
     return rates
       .sort((a, b) => b.rate - a.rate)
       .filter(rate => this.state.movies.filter(m => m.id === rate.movieId)[0])
-      .map((rate, key) => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} key={key}/>);
+      .map((rate, key) => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} index={key} key={key}/>);
   },
 
   render() {

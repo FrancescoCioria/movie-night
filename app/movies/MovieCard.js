@@ -26,7 +26,21 @@ export default React.createClass({
     }),
     delete: React.PropTypes.shape({
       onDeleted: React.PropTypes.func.isRequired
-    })
+    }),
+    index: React.PropTypes.number.isRequired
+  },
+
+  getInitialState() {
+    return {};
+  },
+
+  componentDidMount() {
+    const delay = this.props.index * 50;
+    setTimeout(this.setSRC, delay);
+  },
+
+  setSRC() {
+    this.setState({src: this.props.movie.attributes.poster});
   },
 
   delete() {
@@ -95,14 +109,14 @@ export default React.createClass({
       title,
       year,
       imdbID,
-      poster,
+      // poster,
       plot,
       runtime
     } = this.props.movie.attributes;
     return (
       <div className='card'>
         <div className='image'>
-          <img src={poster}/>
+          <img src={this.state.src} id={imdbID}/>
         </div>
         <div className='content'>
           <div className='header'>
