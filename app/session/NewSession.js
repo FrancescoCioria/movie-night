@@ -18,9 +18,7 @@ export default React.createClass({
 
   startNewSession() {
     const {movieSession} = this.props;
-    const endingAt = new Date();
-    endingAt.setMinutes(endingAt.getMinutes() + this.state.minutes);
-    console.log(endingAt);
+    const endingAt = new Date(Date.now() + (1000 * 60 * parseInt(this.state.minutes)));
     movieSession.set('active', false);
     movieSession.save();
 
