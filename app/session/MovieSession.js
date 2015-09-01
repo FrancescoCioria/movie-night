@@ -54,9 +54,10 @@ export default React.createClass({
 
     const rates = Object.keys(votesByMovieId).map(key => {
       const rate = votesByMovieId[key].reduce((acc, v) => acc + v.attributes.vote, 0);
+      const nVotes = votesByMovieId[key] ? votesByMovieId[key].length : false;
       return {
         movieId: key,
-        rate
+        rate: rate ? (rate / nVotes) : 0
       };
     });
 
