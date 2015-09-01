@@ -9,6 +9,7 @@ const MovieNight = React.createClass({
   propTypes: {},
 
   getInitialState() {
+    console.log('v1');
     return {
       logged: false
     };
