@@ -3,8 +3,12 @@ import axios from 'axios';
 import errorHandler from '../errorHandler';
 import Select from 'react-select';
 
+const tmdbAPIKey = '0c3776904afeef58578a4be938fa2cdb';
+const tmdbById = (imdbID) => `http://api.themoviedb.org/3/find/${imdbID}?external_source=imdb_id&api_key=${tmdbAPIKey}`;
+const tmdbImage = (image) => `https://image.tmdb.org/t/p/w185/${image}`;
+
 const omdbSearch = 'http://www.omdbapi.com/?r=json&type=movie&s=';
-const omdbByID = 'http://www.omdbapi.com/?r=json&type=movie&tomatoes=true&i=';
+const omdbByID = (imdbID) => `http://www.omdbapi.com/?r=json&type=movie&tomatoes=true&i=${imdbID}`;
 
 export default React.createClass({
 
@@ -47,39 +51,45 @@ export default React.createClass({
     const headers = {
       'Accept': 'application/json'
     };
-    axios.get(omdbByID + imdbID, headers).then((res) => {
-      const Movie = Parse.Object.extend('Movie');
-      const movie = new Movie();
 
-      const lowercaseKeys = ['Title', 'Year', 'Plot', 'Poster', 'Runtime'];
-      const keys = ['imdbID', 'imdbRating', 'tomatoMeter'];
+    axios.get(tmdbById(imdbID), headers)
+      .then((res) => Promise.resolve(tmdbImage(res.data.movie_results[0].poster_path)))
+      .then((poster) => {
+        axios.get(omdbByID(imdbID), headers).then((res) => {
+          const Movie = Parse.Object.extend('Movie');
+          const movie = new Movie();
 
-      lowercaseKeys.forEach(key => {
-        movie.set(key.toLowerCase(), res.data[key]);
+          const lowercaseKeys = ['Title', 'Year', 'Plot', 'Runtime'];
+          const keys = ['imdbID', 'imdbRating', 'tomatoMeter'];
+
+          lowercaseKeys.forEach(key => {
+            movie.set(key.toLowerCase(), res.data[key]);
+          });
+
+          keys.forEach(key => {
+            movie.set(key, res.data[key]);
+          });
+
+          movie.set('poster', poster);
+          movie.set('user', Parse.User.current());
+          movie.set('movieSession', this.props.movieSession);
+
+          const { setLoading } = this;
+          const { onAdded } = this.props;
+
+          movie.save(null, {
+            success: (movie) => {
+              setLoading(false);
+              onAdded(movie);
+            },
+            error: (movie, error) => {
+              errorHandler(movie, error);
+              setLoading(false);
+            }
+          });
+
+        });
       });
-
-      keys.forEach(key => {
-        movie.set(key, res.data[key]);
-      });
-
-      movie.set('user', Parse.User.current());
-      movie.set('movieSession', this.props.movieSession);
-
-      const { setLoading } = this;
-      const { onAdded } = this.props;
-
-      movie.save(null, {
-        success: (movie) => {
-          setLoading(false);
-          onAdded(movie);
-        },
-        error: (movie, error) => {
-          errorHandler(movie, error);
-          setLoading(false);
-        }
-      });
-
-    });
   },
 
   setLoading(loading) {
