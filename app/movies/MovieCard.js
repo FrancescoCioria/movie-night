@@ -30,9 +30,13 @@ export default React.createClass({
     index: React.PropTypes.number.isRequired
   },
 
+  contextTypes: {
+    isMobile: React.PropTypes.bool.isRequired
+  },
+
   componentDidMount() {
     $(this.refs.image.getDOMNode()).dimmer({
-      on: 'hover'
+      on: this.context.isMobile ? 'click' : 'hover'
     });
   },
 
