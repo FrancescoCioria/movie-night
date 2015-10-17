@@ -30,17 +30,10 @@ export default React.createClass({
     index: React.PropTypes.number.isRequired
   },
 
-  getInitialState() {
-    return {};
-  },
-
   componentDidMount() {
-    const delay = this.props.index * 50;
-    setTimeout(this.setSRC, delay);
-  },
-
-  setSRC() {
-    this.setState({src: this.props.movie.attributes.poster});
+    $(this.refs.image.getDOMNode()).dimmer({
+      on: 'hover'
+    });
   },
 
   delete() {
@@ -109,31 +102,34 @@ export default React.createClass({
       title,
       year,
       imdbID,
-      // poster,
+      poster,
       plot,
       runtime
     } = this.props.movie.attributes;
     return (
-      <div className='card'>
-        <div className='image'>
-          <img src={this.state.src} id={imdbID}/>
+      <div className='movie-card'>
+        <a className='movie-title' targe='_blank' href={`http://www.imdb.com/title/${imdbID}/`}>
+          <h1>{title}</h1>
+        </a>
+        <div className='card'>
+          <div className='blurring dimmable image' ref='image'>
+            <div className='ui dimmer'>
+              <div className='content'>
+                {this.props.delete && <i className='icon close red' onClick={this.delete} />}
+                <div className='meta'>
+                  <span className='date'>{`${year} - ${runtime}`}</span>
+                </div>
+                <p>{plot}</p>
+                <div className='reviews'>
+                  {this.getReviews()}
+                </div>
+              </div>
+            </div>
+            <img style={{ backgroundImage: `url(${poster})` }} id={imdbID}/>
+          </div>
         </div>
-        <div className='content'>
-          <div className='header'>
-            <a href={`http://www.imdb.com/title/${imdbID}/`} style={{color: '#242424'}}>{title}</a>
-            <span className='date'>{year}</span>
-          </div>
-          <div className='meta'>
-            <span className='date'>{runtime}</span>
-          </div>
-          <p>{plot}</p>
-          <div className='reviews'>
-            {this.getReviews()}
-          </div>
-          <div className='extra'>
-            {this.getRating()}
-          </div>
-          {this.props.delete && <div className='delete-card' onClick={this.delete}>Delete card</div>}
+        <div className='extra'>
+          {this.getRating()}
         </div>
       </div>
     );

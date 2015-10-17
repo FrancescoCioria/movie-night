@@ -1,10 +1,20 @@
+html, body {
+  background-color: #161E2A !important;
+}
+
 #main {
   padding: 30px;
-  height: 100%;
+  /*height: 100%;*/
+  background-color: #161E2A;
 }
 
 #main > div {
-  height: 100%;
+  /*height: 100%;*/
+}
+
+#main .login-form label {
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 1px;
 }
 
 #main .top-buttons {
@@ -14,6 +24,7 @@
   justify-content: flex-end;
   -ms-justify-content: flex-end;
   -webkit-justify-content: flex-end;
+  margin-bottom: 30px;
 }
 
 #main .top-bar {
@@ -30,11 +41,47 @@
 }
 
 #main .top-bar .countdown {
-  margin-left: auto;
+  position: absolute;
+  top: 10px;
+}
+
+#main .top-bar .countdown, #main .top-bar .countdown p, #main .top-bar .countdown span {
+  color: rgba(255,255,255, 0.5) !important;
 }
 
 #main .start-new-session {
   width: 400px;
+}
+
+#main .tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#main .tabs .tab.active {
+  background-color: white;
+}
+
+#main .tabs .tab {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  height: 80px;
+  width: 240px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255, 0.2);
+  cursor: pointer;
+}
+
+#main .empty {
+  text-align: center;
+  color: rgba(255,255,255, 0.5);
+  font-size: 40px;
+  /* font-weight: 500; */
+  letter-spacing: 1px;
 }
 
 #main .ui.cards {
@@ -51,40 +98,92 @@
 }
 
 #main .ui.cards.movie-list {
-  margin: 0 -30px;
+  /*margin: 0 -30px;*/
+  justify-content: space-between;
 }
 
-#main .ui.cards.movie-list .card:first-child {
+/*#main .ui.cards.movie-list .card:first-child {
   margin-left: 30px;
 }
 
 #main .ui.cards.movie-list .card:last-child {
   margin-right: 30px;
+}*/
+
+#main .ui.cards .movie-card {
+  flex: 1 1 100%;
 }
 
 #main .ui.cards .card {
-  max-height: 213px;
-  min-height: 213px;
-  flex-direction: row;
-  min-width: 500px;
+  /*width: 240px;*/
+  /*height: 360px;*/
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 #000,0 0 0 1px #000;
+
+  /*flex-direction: row;*/
+  /*min-width: 500px;*/
 }
 
 #main .ui.cards .card .image {
   background-color: transparent;
+  width: 100%;
+  height: 100%;
 }
 
 #main .ui.cards .card .image img {
-  width: 150px !important;
-  height: 213px !important;
+  margin: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 
 #main .ui.cards .card .content {
-  position: relative;
+  padding: 12px;
+  height: 100%;
+  width: 100%;
+  display: block;
+  color: white !important;
+}
+
+#main .card .blurring.dimmable > .dimmer {
+  background-color: rgba(22,30,42,.75);
+}
+
+#main .ui.cards .card .content .meta {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+#main .ui.cards .card .content .icon.close {
+  position: absolute;
+  top: 4px;
+  right: 1px;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+#main .ui.cards .movie-title h1 {
+  font-size: 19px;
+  height: 43px;
+  margin-bottom: 5px;
+  color: #ACB4BF !important;
+  text-align: center;
+  width: 100%;
 }
 
 #main .ui.cards .card .content p {
+  margin: 0;
+  display: block;
+  text-align: left;
   margin-top: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 #main .ui.cards .card .content .reviews {
@@ -92,16 +191,16 @@
   display: flex;
   display: -webkit-flex;
   display: -ms-flex;
-  bottom: 10px;
+  bottom: 9px;
 }
 
 #main .ui.cards .card .content .reviews .review {
-  display: flex;
   display: -webkit-flex;
   display: -ms-flex;
-  align-items: center;
+  display: flex;
   -webkit-align-items: center;
   -ms-align-items: center;
+  align-items: center;
   margin-right: 10px;
 }
 
@@ -111,10 +210,14 @@
   margin-right: 3px;
 }
 
-#main .ui.cards .card .content .extra {
-  position: absolute;
-  bottom: 7px;
-  right: 12px;
+#main .ui.cards .extra {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 #main .ui.cards .card .content .delete-card {
@@ -134,22 +237,63 @@
   -webkit-flex-direction: column;
 }
 
+#movie-session-page {
+  margin-top: 140px;
+}
+
+#movie-session-page h1, #movie-session-page h3 {
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+}
+
+#movie-session-page .start-new-session {
+  position: absolute;
+  top: 0;
+}
+
+.start-new-session label {
+  color: rgba(255,255,255,0.5);
+}
+
+.start-new-session input {
+  margin-top: 5px;
+  background-color: rgba(255,255,255,0.05) !important;
+  border: 2px solid white !important;
+  color: white !important;
+}
+
+.start-new-session, .add-movie {
+  margin: 20px auto !important;
+  max-width: 400px;
+  background-color: #313741 !important;
+  box-shadow: 0px 0px 5px 0px rgba(255,255,255,0.35);
+}
+
 .add-movie {
   flex: 0 0 auto;
 }
 
-.card .header {
-  display: flex !important;
-  display: -webkit-flex !important;
-  display: -ms-flex !important;
+.add-movie h2 {
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
 }
 
-.card .header .date {
-  margin-left: auto;
-  display: block;
-  text-align: right;
-  font-size: 16px;
+.add-movie .Select-control {
+  background-color: rgba(255,255,255,0.05);
+  border: 2px solid white;
+  color: white;
 }
+
+.card .meta {
+  display: -webkit-flex !important;
+  display: -ms-flex !important;
+  display: flex !important;
+}
+
+./*card .meta .date:last-child {
+  margin-left: auto;
+  text-align: right;
+}*/
 
 .Select .Select-control .Select-placeholder {
   display: none !important;
@@ -162,7 +306,21 @@
   }
 
   #main .top-buttons {
-    margin-bottom: 10px;
+    margin-top: 7px;
+    margin-bottom: 15px;
+  }
+
+  #main .countdown {
+    top: 5px;
+  }
+
+  #main .countdown h1 {
+    font-size: 30px;
+  }
+
+  #main .countdown > span {
+    margin-right: 7px;
+    font-size: 24px;
   }
 
   #main .top-bar {
@@ -173,7 +331,23 @@
     width: 100%
   }
 
-  #main .ui.cards.movie-list {
+  #main .ui.grid>[class*="four column"].doubling:not(.stackable).row.row>.column {
+    width: 100% !important;
+  }
+
+  #main .tabs {
+    margin-top: 15px;
+  }
+
+  #main .tab {
+    width: 50%;
+    padding: 0 10px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 24px;
+  }
+
+  /*#main .ui.cards.movie-list {
     margin: 0 -10px;
   }
 
@@ -197,11 +371,15 @@
   }
 
   #main .ui.cards .card .content {
-    padding: 0.7em 0.7em 0 0.7em;
+    height: 100%;
+    width: 100%;
+    display: block;
   }
 
   #main .ui.cards .card .content p {
     margin: 0;
+    display: block;
+    text-align: left;
   }
 
   #main .ui.cards .card .content .reviews {
@@ -211,6 +389,6 @@
 
   #main .ui.cards .card .content .reviews .review {
     margin-right: 3px;
-  }
+  }*/
 
 }

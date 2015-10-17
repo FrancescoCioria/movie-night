@@ -3,6 +3,7 @@ import errorHandler from './errorHandler';
 import LoginForm from './login/LoginForm';
 import MovieList from './movies/MovieList';
 import MovieSession from './session/MovieSession';
+import { MobileDetector } from 'buildo-react-components';
 
 
 const MovieNight = React.createClass({
@@ -43,7 +44,7 @@ const MovieNight = React.createClass({
     this.setState({movieSession: movieSessions[0]});
   },
 
-  render() {
+  renderTemplate() {
     if (!this.state.logged) {
       return <LoginForm {...this.state} onLogin={this.login} onLogout={this.logout}/>;
     }
@@ -72,6 +73,10 @@ const MovieNight = React.createClass({
         {body}
       </div>
     );
+  },
+
+  render() {
+    return <MobileDetector>{this.renderTemplate}</MobileDetector>;
   }
 
 });

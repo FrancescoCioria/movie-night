@@ -74,7 +74,7 @@ export default React.createClass({
   render() {
     const loading = this.props.loading ? ' loading' : '';
     return (
-      <form className={`ui form ${loading}`}>
+      <form className={`ui form login-form ${loading}`}>
         <div className='field'>
           <label>Username</label>
           <div className='ui left icon input'>

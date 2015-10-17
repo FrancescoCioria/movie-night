@@ -2,6 +2,7 @@ import React from 'react/addons';
 import errorHandler from '../errorHandler';
 import MovieCard from '../movies/MovieCard';
 import NewSession from './NewSession';
+import DoublingGrid from '../movies/DoublingGrid';
 
 export default React.createClass({
 
@@ -64,7 +65,7 @@ export default React.createClass({
     return rates
       .sort((a, b) => b.rate - a.rate)
       .filter(rate => this.state.movies.filter(m => m.id === rate.movieId)[0])
-      .map((rate, key) => <MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} index={key} key={key}/>);
+      .map((rate, key) => <div className='ui special cards'><MovieCard movie={this.state.movies.filter(m => m.id === rate.movieId)[0]} index={key} key={key}/></div>);
   },
 
   render() {
@@ -79,15 +80,11 @@ export default React.createClass({
     return (
       <div id='movie-session-page'>
         <NewSession {...this.props}/>
-        <h1>And the winner is...</h1>
-        <div className='ui special cards'>
-          {Winner}
-        </div>
+        <h1>AND THE WINNER IS...</h1>
+        <DoublingGrid columns={4} elements={[Winner]} />
         <br/>
-        <h3>All the loosers (sorted by rate)</h3>
-        <div className='ui special cards movie-list'>
-          {Loosers}
-        </div>
+        <h3>ALL THE LOOSERS (sorted by rate)</h3>
+        <DoublingGrid columns={4} elements={Loosers} />
       </div>
     );
   }

@@ -22,6 +22,7 @@
   "homepage": "https://github.com/buildo/web-lib-seed",
   "dependencies": {
     "axios": "^0.5.4",
+    "buildo-react-components": "^0.1.9",
     "react-select": "^0.6.3"
   },
   "devDependencies": {
