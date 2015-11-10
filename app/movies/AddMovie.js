@@ -21,7 +21,7 @@ export default React.createClass({
 
   getDefaultProps() {
     return {
-      myMoviesMax: 20
+      myMoviesMax: 3
     };
   },
 
